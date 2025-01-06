@@ -90,7 +90,6 @@ export const singleSpace = (string) => {
 
 export const startsWithC = (string) => {
   return string.match(/\bc\w*\b/g);
-  return string.match(/c\w*/g);
 };
 
 // 15. Match a string that contains the sequence "123".
@@ -175,7 +174,7 @@ export const extractHashtags = (string) => {
 // 28. Validate a 24-hour time format like `"23:59"`.
 
 export const validate24 = (string) => {
-  return string.match(/[0-2][0-3]:[0-5][0-9]/);
+  return string.match(/^([01][0-9]|2[0-3]):([0-5][0-9])$/);
 };
 
 // 29. Capture the area code and phone number from `(123) 456-7890`.
@@ -193,13 +192,13 @@ export const spaceFollowedByWord = (string) => {
 // 31. Match strings containing at least one uppercase and one digit.
 
 export const oneUpperAndDigit = (string) => {
-  return string.match(/.*[A-Z]+.*\d+.*/);
+  return string.match(/.*(\d.*[A-Z]|[A-Z].*\d).*/g);
 };
 
 // 32. Find all non-alphanumeric characters in a string.
 
 export const nonAlphanumeric = (string) => {
-  return string.match(/[^\d]/g);
+  return string.match(/[\D]/g);
 };
 
 // 33. Match email addresses.
@@ -211,8 +210,10 @@ export const email = (string) => {
 // 34. Validate dates in the format `YYYY-MM-DD`.
 
 export const validateDate = (string) => {
-  return string.match(/\d{4}-\d{2}-\d{2}/);
+  return string.match(/(\d{4}):(0[1-9]|1[0-2]):([0-2][1-9]|[123]0)/);
 };
+
+// return string.match(/\b\d{4}-(0[1-9]|1[0-2])-([0-2][1-9]|[1-3]0)\b/);
 
 // 35. Extract the filename and extension from a path like `/path/to/file.txt`.
 
@@ -223,7 +224,7 @@ export const fileNameAndExtension = (string) => {
 // 36. Find all duplicate words in a sentence.
 
 export const duplicate = (string) => {
-  return string.match(/(\w+)(?=.*\1)/);
+  return string.match(/\b(\w+)\b(?=.*\1)/g);
 };
 
 // 37. Match words that do not contain the letter "e".
@@ -251,3 +252,15 @@ export const fourLetterPalindrome = (string) => {
 };
 
 // ```
+
+//0-255.0-255.0-255.0-255
+//234.12.5.56
+
+export const ipv4Validate = (string) => {
+  return string.match(/1?[1-9]?[0-9]|10[0-9]|2[0-4][0-9]|25[0-5]/);
+};
+// [0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]
+
+// 1\d{2}|[1-9]?\d|2[0-4]\d|25[0-5]
+
+// /[1-2]?[1-4]?[0-9]|[5-9][0-9]|[1-2]0[0-9]/
